@@ -17,6 +17,10 @@ the addTask function is passed as prop in Modal.js Component
 Where the addTask() in called when we submit the added data in the modal if we are not editing the data
 else the updateTask() is called with the updatedTask object.
 
+I was renderding the modal even if the show state was false.
+But I needed to render the modal UI component only
+when show state is true else I needed to return null.
+
 UI flow for default selection of task type in addTask flow
 When you click the plus button of the board it 
 opens up a addTask modal.
@@ -55,11 +59,13 @@ component we want to make sure the data is stored
 in the Parent component so that we can pass 
 it to another Child.
 
+
 updateTask function is called for 
 editing a task. The updateTask() takes a parameter which is 
 the updatedTask. The updatedTask is a function which 
 is called from the child component Modal. 
-The updateTask () function has to edit scenarios
+The updateTask () function has 
+to edit  a task in two scenarios
 Case 1: when we are only editing the 
 name but not the state.
 for this we map through the tasks of a particular state
@@ -73,6 +79,12 @@ Case 2 When we change both name and state of task
 then we Delete task from old state => currTask.state 
 and add a new task.
 
+In getUpdatedTaskList() I have used a ternary operator to 
+check if task.id === updatedTask.id then I have returned
+updatedTask else I have to return the task.
 
+getUpdatedTaskList() takes three parameters 
+updatedTask, taskList and setState because these 3 parameters
+always change for each taskType.
 
 
