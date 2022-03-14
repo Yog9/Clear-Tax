@@ -17,16 +17,42 @@ the addTask function is passed as prop in Modal.js Component
 Where the addTask() in called when we submit the added data in the modal if we are not editing the data
 else the updateTask() is called with the updatedTask object.
 
-I was renderding the modal even if the show state was false.
-But I needed to render the modal UI component only
-when show state is true else I needed to return null.
+Render Modal in App Component.
+Two ways to render modal.
+1. Render the modal  always in App Component 
+and make it visible or hidden by using the
+display css property. We make it visible by setting display: block;
+We make it  hidden by setting display: none;
+By this method the component always exists in the DOM.
+As we want to implement both the add and edit functionality
+in the same modal component, for edit we will have to set
+the local state values for taskName and task state to currTask
+values when isEditing prop changes(set to True). 
+Similarly for adding new task, we will have to set the local
+state values for taskName and task state to empty string and 
+taskType respectively.
+As the Modal component is already mounted in the DOM when App
+component is loaded, the above mentioned changes will be made
+in useEffect() for isEditing prop.
+
+2. Conditionally Render the modal in App Component.
+This leads to mounting and unmounting of modal from the DOM
+everytime the show state in App Component changes. We render
+nothing in case of show state being set to false.
+This makes sure that a new Component is loaded and isEditing
+prop in Modal Component never changes. Because of this,
+we set the local state values for taskName and task state to 
+empty string and taskType by default. Whenever isEditing prop
+is true, In componentDidMount() (useEffect with [] dependancy
+array) we set the local state values for taskName and task
+state to currTask values.
+
 
 UI flow for default selection of task type in addTask flow
 When you click the plus button of the board it 
 opens up a addTask modal.
-Now the default selected value in TaskType dropdown
- should be the TaskType of the board from which 
- the modal was opened.
+Now the default selected value in TaskType dropdown should be
+the TaskType of the board from which the modal was opened.
 
 Trigger point is the starting point and it is the 
 plus button in the board.
@@ -38,9 +64,9 @@ Whenever you transfer the data from Child to
 Parent component in React we call it as 
 Lifting up the state.
 1. Dataflow here happens from Board Component(Child) to App
-Component(Parent) and the data goes to 
-2. Then the dataflow happens from 
- Parent (App Component) to Child(Modal Component)
+Component(Parent).
+2. Then the dataflow happens from Parent (App Component) to
+Child(Modal Component).
 Dataflow from Child to Parent Component.
 
 For Dataflow from Child to Parent component 
