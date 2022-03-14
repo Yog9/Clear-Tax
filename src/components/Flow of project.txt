@@ -1,0 +1,78 @@
+These are the components we defined 
+App.js - which has all the related state and also renders the 
+Board components and the Modal Component
+The Board component has a ListTasks component and a '+' button which opens the modal 
+to create a new tasks.
+The ListTasks component renders the TaskComponent.
+The TaskComponent shows the name of the task  with a edit and delete button for the task.
+
+We are handling the following states in App.js
+show(shows the modal), plannedState(has tasks that are yet to me started ),
+startedState(has tasks that are already started ), 
+doneState(has tasks that are completed),
+isEditing(boolean value that checks if we are editing the task or not),
+currTask(stores the currTask that we are editing)
+We handle the addTask, updateTask (to Edit the task) and deleteTask in App.js
+the addTask function is passed as prop in Modal.js Component
+Where the addTask() in called when we submit the added data in the modal if we are not editing the data
+else the updateTask() is called with the updatedTask object.
+
+UI flow for default selection of task type in addTask flow
+When you click the plus button of the board it 
+opens up a addTask modal.
+Now the default selected value in TaskType dropdown
+ should be the TaskType of the board from which 
+ the modal was opened.
+
+Trigger point is the starting point and it is the 
+plus button in the board.
+And where change is reflected is the modal dropdown. 
+Trigger Point : Add button in board component.
+Change reflected : Select box in modal component.
+
+Whenever you transfer the data from Child to
+Parent component in React we call it as 
+Lifting up the state.
+1. Dataflow here happens from Board Component(Child) to App
+Component(Parent) and the data goes to 
+2. Then the dataflow happens from 
+ Parent (App Component) to Child(Modal Component)
+Dataflow from Child to Parent Component.
+
+For Dataflow from Child to Parent component 
+we create a function in Parent Component
+which we pass in Child Component as props.
+Then the function is called in Child Component whenever
+we want the Parent to execute that function. 
+
+To transfer data from child to Parent we pass parameters
+to the prop function passed from Parent to Child.
+Now the Parent can make use of these prop 
+variablesas it sees fit. 
+
+Now to pass these props to another child 
+component we want to make sure the data is stored 
+in the Parent component so that we can pass 
+it to another Child.
+
+updateTask function is called for 
+editing a task. The updateTask() takes a parameter which is 
+the updatedTask. The updatedTask is a function which 
+is called from the child component Modal. 
+The updateTask () function has to edit scenarios
+Case 1: when we are only editing the 
+name but not the state.
+for this we map through the tasks of a particular state
+and if the ids of updatedTask and task is same then
+we get the taksList with updatedTask else we return the original
+taksList
+Also I have modularized it by extracting the above 
+mentioned functionality in a function called getUpdatedTaskList()
+
+Case 2 When we change both name and state of task 
+then we Delete task from old state => currTask.state 
+and add a new task.
+
+
+
+
