@@ -6,22 +6,26 @@
   align-items: center;
   flex-direction: column;
 }
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
+
 .task_element {
   border: solid 1px black;
   padding: 4px;
   margin-top: 4px;
   width: 100%;
 }
+
 .button_styles {
   margin-top: 4px;
   margin-bottom: 4px;
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -48,11 +52,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .form{
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
+
 .button-grp{
   display: flex;
   flex-direction: row;

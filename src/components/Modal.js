@@ -5,7 +5,28 @@ import { v4 as uuidv4 } from "uuid";
 const Modal = ({ handleClose, addTask, isEditing, currTask, updateTask, taskType}) => {
   const [taskName, setTaskName] = React.useState("");
   const [state, setState] = React.useState(taskType);
+/**
+ * If we are editing 
+ * As soon as the component mounts
+ * we want to set the taskname and the state of task
+ */
+  useEffect(() => {
+    if(isEditing){
+      setTaskName(currTask.name);
+      setState(currTask.state);
+    }
+},[]);
 
+/**
+ * this function is called as soon
+ * as we click the save button in modal
+ * It has two scenarios
+ * 1.If we are editing we call updateTask() with
+ * updatedObject
+ * 2. Else we add a task
+ * @param {Object} e 
+ * @returns null
+ */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!taskName) return;
@@ -24,16 +45,15 @@ const Modal = ({ handleClose, addTask, isEditing, currTask, updateTask, taskType
     handleClose();
   };
 
+/**
+ * Called on Onchange of dropdown to set the
+ * state of taskType
+ * @param {Object} e 
+ */
   const handleState = (e) => {
     setState(e.target.value);
   };
 
-  useEffect(() => {
-      if(isEditing){
-        setTaskName(currTask.name);
-        setState(currTask.state);
-      }
-  },[]);
   const heading = isEditing ? (<h4 className="heading">Edit Mode</h4>) : (<h4 className="heading">Create Mode</h4>);
   return (
     <div className = "modal">

@@ -1,10 +1,12 @@
 These are the components we defined 
 App.js - which has all the related state and also renders the 
 Board components and the Modal Component
-The Board component has a ListTasks component and a '+' button which opens the modal 
-to create a new tasks.
-The ListTasks component renders the TaskComponent.
-The TaskComponent shows the name of the task  with a edit and delete button for the task.
+The Board component has a ListTasks component and a '+' 
+button which opens the modal to create a new task.
+The ListTasks component renders list 
+of tasks using the TaskComponent.
+The TaskComponent shows the name of the task  with a
+edit and delete button for the task.
 
 We are handling the following states in App.js
 show(shows the modal), plannedState(has tasks that are yet to me started ),

@@ -1,41 +1,42 @@
 import {TaskType as TaskType} from './TaskType';
+import { v4 as uuidv4 } from "uuid";
 
 const tasks = [
   {
     name: "XYZ",
     date: "23-09-2023",
     state: TaskType.Todo,
-    id: "1",
+    id: uuidv4(),
   },
   {
     name: "Learn Java",
     date: "23-09-2023",
     state: TaskType.Todo,
-    id: "6",
+    id: uuidv4(),
   },
   {
     name: "Running",
     date: "23-09-2023",
     state: TaskType.InProgress,
-    id: "2",
+    id: uuidv4(),
   },
   {
     name: "Swimming",
     date: "23-09-2023",
     state: TaskType.InProgress,
-    id: "4",
+    id: uuidv4(),
   },
   {
     name: "Watching TV",
     date: "23-09-2023",
     state: TaskType.Done,
-    id: "3",
+    id: uuidv4(),
   },
   {
     name: "Dancing",
     date: "23-09-2023",
     state: TaskType.Done,
-    id: "5",
+    id: uuidv4(),
   },
 ];
 

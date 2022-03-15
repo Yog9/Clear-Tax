@@ -1,13 +1,16 @@
 import React from "react";
 import TaskComponent from "./TaskComponent";
-
-
-const ListTask = ({ tasks, editTask, deleteTask }) => {
+/**
+ * lists all tasks using taskComponent
+ * @param {*} 
+ * @returns jsx
+ */
+const ListTask = ({ tasks, showEditModal, deleteTask }) => {
   const task = tasks.map(task => 
                             <TaskComponent
                               task = {task}
                               key = {task.id} 
-                              editTask = {editTask} 
+                              showEditModal = {showEditModal} 
                               deleteTask = {deleteTask}
                             />);
   return <div>{task}</div>;

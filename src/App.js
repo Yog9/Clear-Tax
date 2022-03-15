@@ -16,14 +16,21 @@ function App() {
   const [doneState, setDoneState] = useState(
     tasks.filter((t) => t.state === TaskType.Done)
   );
-
   const [isEditing, setIsEditing] = useState(false);
   const [currTask, setCurrTask] = useState();
   const [taskType, setTaskType] = useState();
+
+/**
+ * Shows the modal
+ */
   const showModal = () => {
     setShow(true);
   };
 
+/**
+ * Hides the modal also sets isEditing to
+ * false
+ */
   const hideModal = () => {
     setShow(false);
     setIsEditing(false);
@@ -50,11 +57,23 @@ function App() {
       // Do nothing
     }
   };
+  
+/**
+ * It helps to getupdated task list 
+ * based on tasklist.
+ * @param {*} updatedTask 
+ * @param {Array} taskList 
+ * @param {Function} setState 
+ */
   const getUpdatedTaskList = (updatedTask, taskList, setState) => {
     const updatedTaskList = taskList.map(task => task.id === updatedTask.id ? updatedTask : task);
     setState(updatedTaskList);
   };
 
+/**
+ * Handles edit functionality of  the task 
+ * @param {Object} updatedTask 
+ */
   const updateTask = (updatedTask) => {
     if (updatedTask.state === currTask.state) {
       switch (updatedTask.state) {
@@ -80,33 +99,43 @@ function App() {
   };
 
   /**
-   * Edits the current task
+   * This just enables the modal to open in edit state. 
    * @param {Object} task
    */
-  const editTask = (task) => {
+  const showEditModal = (task) => {
     setIsEditing(true);
     setCurrTask(task);
     setShow(true);
   };
 
+/**
+ * It helps to set the tasktype 
+ * as soon as the modal opens in create scenario
+ * @param {String} taskType 
+ */
   const addTaskType = (taskType) => {
     setTaskType(taskType);
   };
 
+/**
+ * Deletes a task based on id and tasktype
+ * @param {String} id 
+ * @param {String} state 
+ */
   const deleteTask = (id, state) => {
-    let allTasks;
+    let tasks;
     switch (state) {
       case TaskType.Todo:
-        allTasks = plannedState;
+        tasks = plannedState;
         break;
       case TaskType.InProgress:
-        allTasks = startedState;
+        tasks = startedState;
         break;
       case TaskType.Done:
-        allTasks = doneState;
+        tasks = doneState;
         break;
     }
-    const filteredTaskList = allTasks.filter((task) => {
+    const filteredTaskList = tasks.filter((task) => {
       return task.id !== id;
     });
     switch (state) {
@@ -143,17 +172,17 @@ function App() {
       <h2 className="heading">Kanban Board</h2>
       <div className="container">
         <Board
-          tasks={plannedState}
-          title={TaskType.Todo}
-          editTask={editTask}
-          deleteTask={deleteTask}
-          showModal={showModal}
+          tasks = {plannedState}
+          title = {TaskType.Todo}
+          showEditModal = {showEditModal}
+          deleteTask = {deleteTask}
+          showModal = {showModal}
           addTaskType = {addTaskType}
         />
         <Board
           tasks={startedState}
           title={TaskType.InProgress}
-          editTask={editTask}
+          showEditModal = {showEditModal}
           deleteTask={deleteTask}
           showModal={showModal}
           addTaskType = {addTaskType}
@@ -161,7 +190,7 @@ function App() {
         <Board
           tasks={doneState}
           title={TaskType.Done}
-          editTask={editTask}
+          showEditModal = {showEditModal}
           deleteTask={deleteTask}
           showModal={showModal}
           addTaskType = {addTaskType}
