@@ -106,7 +106,7 @@ mentioned functionality in a function called setUpdatedTaskList()
 
 Case 2 When we change both name and state of task 
 then we Delete task from old state => currTask.state 
-and add a new task in new state => task.state.
+and add a new task in new state => updatedTask.state.
 
 In setUpdatedTaskList() I have used a ternary operator to 
 check if task.id === updatedTask.id then I have returned

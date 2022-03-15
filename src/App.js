@@ -76,7 +76,8 @@ function App() {
  * update the task in the state
  * case 2 : when we change both the name and tasktype
  * so in this case we remove the current task 
- * and add the updated task in the task list
+ * from currTask.state and add the updated task in the
+ * updatedTask.state task list respectively
  * 
  * @param {Object} updatedTask 
  */
@@ -93,7 +94,7 @@ function App() {
           setUpdatedTaskList(updatedTask, doneState, setDoneState);
           break;
         default:
-          console.log("came in default");
+          return;
       }
     } else {
       // Delete task from old state => currTask.state
