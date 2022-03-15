@@ -1,0 +1,119 @@
+These are the components we defined 
+App.js - which has all the related state and also renders the 
+Board components and the Modal Component
+The Board component has a ListTasks component and a '+' 
+button which opens the modal to create a new task.
+The ListTasks component renders list 
+of tasks using the TaskComponent.
+The TaskComponent shows the name of the task  with a
+edit and delete button for the task.
+
+We are handling the following states in App.js
+show(shows the modal), plannedState(has tasks that are yet to me started ),
+startedState(has tasks that are already started ), 
+doneState(has tasks that are completed),
+isEditing(boolean value that checks if we are editing the task or not),
+currTask(stores the currTask that we are editing)
+We handle the addTask, updateTask (to Edit the task) and deleteTask in App.js.
+The addTask function is passed as prop in Modal.js Component
+where the addTask() in called when we submit the added data in the modal.
+If we are editing a task in the modal the updateTask() is called with the
+updatedTask object in handleSubmit when we submit the form.
+
+Render Modal in App Component.
+Two ways to render modal.
+1. Render the modal  always in App Component 
+and make it visible or hidden by using the
+display css property. We make it visible by setting display: block;
+We make it  hidden by setting display: none;
+By this method the component always exists in the DOM.
+As we want to implement both the add and edit functionality
+in the same modal component, for edit we will have to set
+the local state values for taskName and task state to currTask
+values when isEditing prop changes(set to True). 
+Similarly for adding new task, we will have to set the local
+state values for taskName and task state to empty string and 
+taskType respectively.
+As the Modal component is already mounted in the DOM when App
+component is loaded, the above mentioned changes will be made
+in useEffect() for isEditing prop.
+
+2. Conditionally Render the modal in App Component.
+This leads to mounting and unmounting of modal from the DOM
+everytime the show state in App Component changes. We render
+nothing in case of show state being set to false.
+This makes sure that a new Component is loaded and isEditing
+prop in Modal Component never changes. Because of this,
+we set the local state values for taskName and task state to 
+empty string and taskType by default. Whenever isEditing prop
+is true, In componentDidMount() (useEffect with [] dependancy
+array) we set the local state values for taskName and task
+state to currTask values.
+
+
+UI flow for default selection of task type in addTask flow
+When you click the plus button of the board it 
+opens up an add task modal.
+Now the default selected value in TaskType dropdown should be
+the TaskType of the board from which the modal was opened.
+
+Trigger point is the starting point and it is the 
+plus button in the board.
+And where change is reflected is the modal dropdown. 
+Trigger Point : Add button in board component.
+Change reflected : Select box in modal component.
+
+Whenever you transfer the data from Child to
+Parent component in React we call it as 
+Lifting up the state.
+1. Dataflow here happens from Board Component(Child) to App
+Component(Parent).
+2. Then the dataflow happens from Parent (App Component) to
+Child(Modal Component).
+Dataflow from Child to Parent Component.
+
+For Dataflow from Child to Parent component 
+we create a function in Parent Component
+which we pass in Child Component as props.
+Then the function is called in Child Component whenever
+we want the Parent to execute that function. 
+
+To transfer data from child to Parent we pass parameters
+to the prop function passed from Parent to Child.
+Now the Parent can make use of these prop 
+variablesas it sees fit. 
+
+Now to pass these props to another child 
+component we want to make sure the data is stored 
+in the Parent component so that we can pass 
+it to another Child.
+
+
+updateTask function is called for 
+editing a task. The updateTask() takes a parameter which is 
+the updatedTask. The updatedTask is a function which 
+is called from the child component Modal. 
+The updateTask () function has 
+to edit  a task in two scenarios
+Case 1: when we are only editing the 
+name but not the state.
+for this we map through the tasks of a particular state
+and if the ids of updatedTask and task is same then
+we get the taskList with updatedTask else we return the original
+taksList.
+Also I have modularized it by extracting the above 
+mentioned functionality in a function called setUpdatedTaskList()
+
+Case 2 When we change both name and state of task 
+then we Delete task from old state => currTask.state 
+and add a new task in new state => updatedTask.state.
+
+In setUpdatedTaskList() I have used a ternary operator to 
+check if task.id === updatedTask.id then I have returned
+updatedTask else I have to return the task.
+
+setUpdatedTaskList() takes three parameters 
+updatedTask, taskList and setState because these 3 parameters
+always change for each taskType.
+
+
