@@ -14,10 +14,11 @@ startedState(has tasks that are already started ),
 doneState(has tasks that are completed),
 isEditing(boolean value that checks if we are editing the task or not),
 currTask(stores the currTask that we are editing)
-We handle the addTask, updateTask (to Edit the task) and deleteTask in App.js
-the addTask function is passed as prop in Modal.js Component
-Where the addTask() in called when we submit the added data in the modal if we are not editing the data
-else the updateTask() is called with the updatedTask object.
+We handle the addTask, updateTask (to Edit the task) and deleteTask in App.js.
+The addTask function is passed as prop in Modal.js Component
+where the addTask() in called when we submit the added data in the modal.
+If we are editing a task in the modal the updateTask() is called with the
+updatedTask object in handleSubmit when we submit the form.
 
 Render Modal in App Component.
 Two ways to render modal.
@@ -52,7 +53,7 @@ state to currTask values.
 
 UI flow for default selection of task type in addTask flow
 When you click the plus button of the board it 
-opens up a addTask modal.
+opens up an add task modal.
 Now the default selected value in TaskType dropdown should be
 the TaskType of the board from which the modal was opened.
 
@@ -98,20 +99,20 @@ Case 1: when we are only editing the
 name but not the state.
 for this we map through the tasks of a particular state
 and if the ids of updatedTask and task is same then
-we get the taksList with updatedTask else we return the original
-taksList
+we get the taskList with updatedTask else we return the original
+taksList.
 Also I have modularized it by extracting the above 
-mentioned functionality in a function called getUpdatedTaskList()
+mentioned functionality in a function called setUpdatedTaskList()
 
 Case 2 When we change both name and state of task 
 then we Delete task from old state => currTask.state 
-and add a new task.
+and add a new task in new state => task.state.
 
-In getUpdatedTaskList() I have used a ternary operator to 
+In setUpdatedTaskList() I have used a ternary operator to 
 check if task.id === updatedTask.id then I have returned
 updatedTask else I have to return the task.
 
-getUpdatedTaskList() takes three parameters 
+setUpdatedTaskList() takes three parameters 
 updatedTask, taskList and setState because these 3 parameters
 always change for each taskType.
 

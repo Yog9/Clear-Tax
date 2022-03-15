@@ -57,34 +57,40 @@ function App() {
       // Do nothing
     }
   };
-  
+
 /**
- * It helps to getupdated task list 
- * based on tasklist.
+ * It updates the updated task in given task
+ * list and sets it into respective state.
  * @param {*} updatedTask 
  * @param {Array} taskList 
  * @param {Function} setState 
  */
-  const getUpdatedTaskList = (updatedTask, taskList, setState) => {
+  const setUpdatedTaskList = (updatedTask, taskList, setState) => {
     const updatedTaskList = taskList.map(task => task.id === updatedTask.id ? updatedTask : task);
     setState(updatedTaskList);
   };
 
 /**
- * Handles edit functionality of  the task 
+ * Handles edit functionality of  the task
+ * case 1 : when name change we only 
+ * update the task in the state
+ * case 2 : when we change both the name and tasktype
+ * so in this case we remove the current task 
+ * and add the updated task in the task list
+ * 
  * @param {Object} updatedTask 
  */
   const updateTask = (updatedTask) => {
     if (updatedTask.state === currTask.state) {
       switch (updatedTask.state) {
         case TaskType.Todo:
-          getUpdatedTaskList(updatedTask, plannedState, setPlannedState);
+          setUpdatedTaskList(updatedTask, plannedState, setPlannedState);
           break;
         case TaskType.InProgress:
-          getUpdatedTaskList(updatedTask, startedState, setStartedState);
+          setUpdatedTaskList(updatedTask, startedState, setStartedState);
           break;
         case TaskType.Done:
-          getUpdatedTaskList(updatedTask, doneState, setDoneState);
+          setUpdatedTaskList(updatedTask, doneState, setDoneState);
           break;
         default:
           console.log("came in default");
@@ -171,6 +177,7 @@ function App() {
     <>
       <h2 className="heading">Kanban Board</h2>
       <div className="container">
+        {Object.keys()}
         <Board
           tasks = {plannedState}
           title = {TaskType.Todo}
